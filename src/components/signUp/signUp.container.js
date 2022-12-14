@@ -15,21 +15,22 @@ const SignUpContainer = () => {
   };
 
   const onChangeEmail = (event) => {
+    const regex = new RegExp("[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]");
+    if (regex.test(event.target.value) && password.length >= 8) {
+      setIsOn(true);
+    } else {
+      setIsOn(false);
+    }
     setEmail(event.target.value);
-    if (email.includes("@") && password.length >= 7) {
-      setIsOn(true);
-    } else {
-      setIsOn(false);
-    }
   };
-
   const onChangePassword = (event) => {
-    setPassword(event.target.value);
-    if (email.includes("@") && password.length >= 7) {
+    const regex = new RegExp("[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]");
+    if (regex.test(email) && event.target.value.length >= 8) {
       setIsOn(true);
     } else {
       setIsOn(false);
     }
+    setPassword(event.target.value);
   };
 
   const onClickSignUp = async () => {

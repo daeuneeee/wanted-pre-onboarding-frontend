@@ -14,12 +14,7 @@ const ToDoPresenter = (props) => {
         </div>
       </Wrapper>
       {props.data?.data?.map((el) => (
-        <ToDoListContainer
-          data={props.data}
-          getData={props.getData}
-          el={el}
-          key={el.id}
-        />
+        <ToDoListContainer getData={props.getData} el={el} key={el.id} />
       ))}
     </Container>
   );

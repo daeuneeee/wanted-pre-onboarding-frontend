@@ -7,7 +7,10 @@ const ToDoListPresenter = (props) => {
         <li>
           {props.isEdit ? (
             <>
-              <input onChange={props.onChangeEditTodo} value={props.editTodo} />
+              <input
+                onChange={props.onChangeEditTodo}
+                defaultValue={props.dataMap.todo || props.editTodo}
+              />
               <button onClick={props.onClickEdit} id={props.dataMap?.id}>
                 제출
               </button>

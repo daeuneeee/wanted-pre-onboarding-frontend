@@ -5,17 +5,10 @@ import ToDoListPresenter from "./toDoList.presenter";
 const ToDoListContainer = (props) => {
   const [editTodo, setEditTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const data = props.data;
   const dataMap = props.el;
   const getData = props.getData;
 
   const onClickDone = async (event) => {
-    let todo = null;
-    data.data.forEach((el) => {
-      if (String(el.id) === String(event.target.id)) {
-        todo = el;
-      }
-    });
     await axios({
       url: `https://pre-onboarding-selection-task.shop/todos/${event.currentTarget.id}`,
       method: "put",
@@ -23,8 +16,8 @@ const ToDoListContainer = (props) => {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       data: {
-        todo: todo.todo,
-        isCompleted: !todo.isCompleted,
+        todo: dataMap.todo,
+        isCompleted: !dataMap.isCompleted,
       },
     });
     getData();
@@ -62,11 +55,8 @@ const ToDoListContainer = (props) => {
   };
 
   const onClickEditBtn = (event) => {
-    data.data.forEach((el) => {
-      if (String(el.id) === String(event.target.id)) {
-        setIsEdit((prev) => !prev);
-      }
-    });
+    if (String(dataMap.id) === String(event.target.id))
+      setIsEdit((prev) => !prev);
   };
 
   const onChangeEditTodo = (event) => {
@@ -79,7 +69,6 @@ const ToDoListContainer = (props) => {
 
   return (
     <ToDoListPresenter
-      data={data}
       onClickDone={onClickDone}
       onClickDelete={onClickDelete}
       onClickEdit={onClickEdit}
